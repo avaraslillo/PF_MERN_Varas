@@ -16,7 +16,7 @@ Para empezar con este proyecto, seguir estos pasos:
 1. Clonar el repositorio:
 
     ```bash
-    git clone https://github.com/avaraslillo/
+    git clone https://github.com/avaraslillo/1ENT_MERN_Varas.git
     ```
 
 2. Navegar al directorio del proyecto:
