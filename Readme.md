@@ -78,7 +78,7 @@ Este endpoint genera un nuevo carrito de compra. Puede ser accedido mediante la 
 
 Este endpoint agrega un producto a un carrito de compra ya existente. Puede ser accedido mediante la siguiente URL (usando método POST): http://localhost:8080/api/carts/{$cid}/product/{$pid}, con $cid siendo el ID del carrito de compra y $pid siendo el ID del producto.
 
-## Manejo de errores
+## Manejo de Errores
 
 Esta API incluye manejo básico de errores:
 
