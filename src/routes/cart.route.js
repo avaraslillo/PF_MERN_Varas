@@ -4,12 +4,24 @@ import { v4 as uuidv4 } from 'uuid';
 const cartRouter = Router();
 const path = './src/db/carritos.json';
 
+//Función para verificar si el archivo existe
+const archivoExiste = async () => {
+    try {
+        await fs.promises.access(path);
+    } catch (error) {
+        // Si el archivo no existe, es creado con un arreglo vacío
+        await fs.promises.writeFile(path, '[]');
+    }
+};
+
+//Función para agregar un carrito
 cartRouter.post('/', async(req, res) => {
     try{
         const newCart= {
             id: uuidv4(),
             products: []
         };
+        await archivoExiste();
         const fileOfCarts = await fs.promises.readFile(path, 'utf-8');
         if(fileOfCarts.length === 0){
             await fs.promises.writeFile(path, JSON.stringify([newCart]));
@@ -29,8 +41,10 @@ cartRouter.post('/', async(req, res) => {
 
 });
 
+//Función para obtener un carrito por su ID
 cartRouter.get('/:cid', async(req, res) => {
     try{
+        await archivoExiste();
         const fileOfCarts = await fs.promises.readFile(path, 'utf-8');
         const carts = JSON.parse(fileOfCarts);
         const cart = carts.find(cart => cart.id == req.params.cid);
@@ -48,8 +62,10 @@ cartRouter.get('/:cid', async(req, res) => {
 
 });
 
+//Función para agregar un producto con su PID a un carrito con su CID
 cartRouter.post('/:cid/product/:pid', async(req, res) => {
     try{
+        await archivoExiste();
         const fileOfCarts = await fs.promises.readFile(path, 'utf-8');
         const carts = JSON.parse(fileOfCarts);
         const cart = carts.find(cart => cart.id == req.params.cid);
@@ -62,7 +78,7 @@ cartRouter.post('/:cid/product/:pid', async(req, res) => {
                 cart.products.push({id: req.params.pid, quantity: 1});
             }
             await fs.promises.writeFile(path, JSON.stringify(carts));
-            res.json({message: 'Se agrego el producto'});
+            res.json({message: 'Se agregó el producto'});
         }
         else{
             res.status(404).json({message: 'No se encontró el carrito'});

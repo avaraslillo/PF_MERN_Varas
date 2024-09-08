@@ -1,0 +1,73 @@
+# Primera entrega PF para Curso Backend Avanzado CH
+
+Este proyecto es una API que maneja un listado de productos y un listado de carritos de compra a los cuales es posible agregar productos.
+
+## Tabla de contenidos
+
+- [Instalación](#instalacion)
+- [Uso](#uso)
+- [API Endpoints](#api-endpoints)
+- [Manejo de Errores](#manejo-de-errores)
+
+## Instalación
+
+Para empezar con este proyecto, seguir estos pasos:
+
+1. Clonar el repositorio:
+
+    ```bash
+    git clone https://github.com/avaraslillo/
+    ```
+
+2. Navegar al directorio del proyecto:
+
+    ```bash
+    cd 1ENT_MERN_VARAS
+    ```
+
+3. Instalar las dependencias:
+
+    ```bash
+    npm install
+    ```
+
+5. Inicializar el servidor:
+
+    ```bash
+    npm start
+    ```
+
+La API se ejecutará en la siguiente URL `http://localhost:8080`.
+
+
+Es posible interactuar con la API utilizando herramientas como Postman y CURL.
+
+## API Endpoints (Productos)
+
+### Obtener todos los productos
+
+Este endpoint obtiene todos el listado de productos. Es posible configurar un límite de productos. Puede ser accedido mediante la siguiente URL (usando método GET): http://localhost:8080/api/products
+
+### Obtener producto por ID
+
+Este endpoint obtiene un único producto que coincida con el ID enviado como parámetro. Puede ser accedido mediante la siguiente URL (usando método GET): http://localhost:8080/api/products{$id}, con $id siendo definido por el usuario.
+
+### Crear Producto
+
+Este endpoint crea un nuevo producto con los siguientes parámetros: title, description, code, price, state, stock, category y thumbnails. Todos los datos son obligatorios a excepción de thumbnails. Puede ser accedido mediante la siguiente URL (usando método POST): http://localhost:8080/api/products
+
+### Actualizar Producto
+
+Este endpoint actualiza un producto ya existente con los siguientes parámetros: title, description, code, price, state, stock, category y thumbnails. Todos los datos son obligatorios a excepción de thumbnails. Puede ser accedido mediante la siguiente URL (usando método POST): http://localhost:8080/api/products/{$id}, con $id siendo definido por el usuario que debe ser actualizado.
+
+### Eliminar Producto
+
+Este endpoint elimina un producto ya existente. Puede ser accedido mediante la siguiente URL (usando método DELETE): http://localhost:8080/api/products/{$id}, con $id siendo definido por el usuario que debe ser eliminado.
+
+## Error handling
+
+Esta API incluye manejo básico de errores:
+
+- 404 Not Found: Si un producto o carrito no es encontrado.
+- 400 Bad Request: Si hay campos obligatorios que no están presentes o son inválidos en el request body.
+- 500 Internal Server Error: Para errores inesperados en el servidor
