@@ -1,4 +1,4 @@
-# Primera entrega PF para Curso Backend Avanzado CH
+# Segunda entrega PF para Curso Backend Avanzado CH
 
 Este proyecto es una API que maneja un listado de productos y un listado de carritos de compra a los cuales es posible agregar productos.
 
@@ -64,6 +64,14 @@ Este endpoint actualiza un producto ya existente con los siguientes parámetros:
 
 Este endpoint elimina un producto ya existente. Puede ser accedido mediante la siguiente URL (usando método DELETE): http://localhost:8080/api/products/{$id}, con $id siendo definido por el usuario que debe ser eliminado.
 
+### Visualizar el listado de productos.
+
+Este endpoint obtiene el listado de productos y los muestra en una tabla. Puede ser accedido mediante la siguiente URL (directamente desde el navegador): http://localhost:8080
+
+### Visualizar el listado de productos en tiempo real.
+
+Este endpoint obtiene el listado de productos y los muestra en una tabla. Además, se muestran alertas en tiempo real cada vez que se agrega o elimina un producto, gracias al protocolo Websocket. Puede ser accedido mediante la siguiente URL (directamente desde el navegador): http://localhost:8080/realtimeproducts
+
 ## API Endpoints (Carritos)
 
 ### Obtener carrito por ID
@@ -77,14 +85,6 @@ Este endpoint genera un nuevo carrito de compra. Puede ser accedido mediante la 
 ### Ingresar Producto a un Carrito
 
 Este endpoint agrega un producto a un carrito de compra ya existente. Puede ser accedido mediante la siguiente URL (usando método POST): http://localhost:8080/api/carts/{$cid}/product/{$pid}, con $cid siendo el ID del carrito de compra y $pid siendo el ID del producto.
-
-### Visualizar el listado de productos.
-
-Este endpoint obtiene el listado de productos y los muestra en una tabla. Puede ser accedido mediante la siguiente URL (directamente desde el navegador): http://localhost:8080
-
-### Visualizar el listado de productos en tiempo real.
-
-Este endpoint obtiene el listado de productos y los muestra en una tabla. Además, se muestran alertas en tiempo real cada vez que se agrega o elimina un producto, gracias al protocolo Websocket. Puede ser accedido mediante la siguiente URL (directamente desde el navegador): http://localhost:8080/realtimeproducts
 
 
 ## Manejo de Errores
