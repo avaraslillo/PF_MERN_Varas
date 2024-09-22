@@ -18,7 +18,9 @@ const agregarImagenes = (thumbnails) => {
       img.setAttribute('alt', 'thumbnails');
       img.size=100;
       nuevoSetDeImagenes.appendChild(img);
-      nuevoSetDeImagenes.appendChild(document.createElement('br'));
+      if(i < thumbnails.length - 1){
+        nuevoSetDeImagenes.appendChild(document.createElement('br'));
+      }
     }
   }
 

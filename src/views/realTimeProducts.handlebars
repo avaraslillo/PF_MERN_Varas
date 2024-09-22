@@ -27,9 +27,11 @@
                             <div>
                                 {{#each thumbnails}}
                                 
-                                <img src="{{this}}" id="thumbnail_{{@index}}" class="thumbnail" alt="thumbnails"
-                                size="100px">
-                                <br>
+                                    <img src="{{this}}" id="thumbnail_{{@index}}" class="thumbnail" alt="thumbnails"
+                                    size="100px">
+                                    {{#unless @last}}
+                                    <br>
+                                    {{/unless}}
                                 {{/each}}
                             </div>
                         {{else}}

@@ -97,17 +97,6 @@
     ]
   },
   {
-    "id": "49b063a0-2871-45df-bb97-6a442f8c6563",
-    "title": "Funko POP Belly Dance Homer",
-    "description": "Funko representando a Homer Simpson disfrazado de bailarina",
-    "code": "FTV1144",
-    "price": "12.99",
-    "status": "true",
-    "stock": "1300",
-    "category": "Funko",
-    "thumbnails": []
-  },
-  {
     "id": "8d786805-c7c4-443c-abff-a464806d1140",
     "title": "Funko POP Bender",
     "description": "Funko representando a Bender de la serie Futurama",
@@ -118,6 +107,34 @@
     "category": "Funko",
     "thumbnails": [
       "https://http2.mlstatic.com/D_NQ_NP_792504-CBT69369981223_052023-O.webp"
+    ]
+  },
+  {
+    "id": "24439393-bb96-4fd8-852a-312c37293898",
+    "title": "Funko POP Duffman",
+    "description": "Funko representando al personaje Duffman de Los Simpson",
+    "code": "FTV902",
+    "price": "11.99",
+    "status": "true",
+    "stock": "1500",
+    "category": "Funko",
+    "thumbnails": [
+      "https://http2.mlstatic.com/D_NQ_NP_843982-MLM44830163568_022021-O.webp",
+      "https://i.ebayimg.com/images/g/iKUAAOSwIQdij6dG/s-l500.jpg"
+    ]
+  },
+  {
+    "id": "eedae7c3-c6b9-47c9-94bf-31c0b20e54e6",
+    "title": "Funko POP Belly Dance Homer",
+    "description": "Funko representando a Homer Simpson disfrazado de bailarina",
+    "code": "FTV1144",
+    "price": "15.99",
+    "status": "true",
+    "stock": "800",
+    "category": "Funko",
+    "thumbnails": [
+      "https://www.weplay.cl/pub/media/catalog/product/cache/3f1b140c3c9f36fbf6b01dffb521c246/8/8/889698555609.jpg",
+      "https://i.ytimg.com/vi/MzVUm7ntzmQ/maxresdefault.jpg"
     ]
   }
 ]
