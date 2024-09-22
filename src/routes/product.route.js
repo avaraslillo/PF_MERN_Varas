@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
+import io from '../app.js';
 const productRouter = Router();
 const path = './src/db/productos.json';
 
@@ -80,15 +81,17 @@ productRouter.post('/', async(req, res) => {
         const fileOfProducts = await fs.promises.readFile(path, 'utf-8');
         //Si el archivo está vacío, se ingresa el primer producto
         if(fileOfProducts.length === 0){
-            await fs.promises.writeFile(path, JSON.stringify([newProduct]));
+            await fs.promises.writeFile(path, JSON.stringify([newProduct], null, 2));
             res.status(201).json({message: 'Se agregó el producto'});
+            io.emit('newProduct', product);
         }
         //Si el archivo no está vacío, se agrega el nuevo producto
         else{
             const products = JSON.parse(fileOfProducts);
             products.push(newProduct);
-            await fs.promises.writeFile(path, JSON.stringify(products));
+            await fs.promises.writeFile(path, JSON.stringify(products, null, 2));
             res.status(201).json({message: 'Se agregó el producto'});
+            io.emit('newProduct', newProduct);
         }
     }
     catch(error){
@@ -118,8 +121,9 @@ productRouter.put('/:id', async(req, res) => {
             product.stock = stock;
             product.category = category;
             product.thumbnails = (thumbnails) ? thumbnails : [];
-            await fs.promises.writeFile(path, JSON.stringify(products));
+            await fs.promises.writeFile(path, JSON.stringify(products, null, 2));
             res.status(201).json({message: 'Se actualizó el producto'});
+            
         }
         else{
             res.status(404).json({message: 'No se encontró el producto'});
@@ -140,8 +144,9 @@ productRouter.delete('/:id', async(req, res) => {
         let product = products.find(product => product.id == req.params.id);
         if(product){
             products = products.filter(product => product.id != req.params.id);
-            await fs.promises.writeFile(path, JSON.stringify(products));
+            await fs.promises.writeFile(path, JSON.stringify(products, null, 2));
             res.json({message: 'Se eliminó el producto'});
+            io.emit('deleteProduct', product);
         }
         else{
             res.status(404).json({message: 'No se encontró el producto'});

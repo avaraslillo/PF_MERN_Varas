@@ -1,0 +1,45 @@
+<div>
+    <h1>Almacén de Funko POPs</h1>
+    <table>
+        <tr id="thead">
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Código</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Stock</th>
+            <th>Categoría</th>
+            <th>Imágenes</th>
+        </tr>
+
+        <tbody id="tbody">
+            {{#each listOfProducts}}
+                <tr>
+                    <td>{{title}}</td>
+                    <td>{{description}}</td>
+                    <td>{{code}}</td>
+                    <td>{{price}}</td>
+                    <td>{{status}}</td>
+                    <td>{{stock}}</td>
+                    <td>{{category}}</td>
+                    <td>
+                        {{#if thumbnails}}
+
+                            <div>
+                                {{#each thumbnails}}
+                                
+                                <img src="{{this}}" id="thumbnail_{{@index}}" class="thumbnail" alt="thumbnails"
+                                size="100px">
+                                <br>
+                                {{/each}}
+                            </div>
+
+                        {{else}}
+                            <p>No hay imágenes</p>
+                        {{/if}}
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

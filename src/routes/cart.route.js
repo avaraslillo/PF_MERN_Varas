@@ -30,7 +30,7 @@ cartRouter.post('/', async(req, res) => {
         else{
             const carts = JSON.parse(fileOfCarts);
             carts.push(newCart);
-            await fs.promises.writeFile(path, JSON.stringify(carts));
+            await fs.promises.writeFile(path, JSON.stringify(carts, null, 2));
             res.json({message: 'Se agregó el carrito'});
         }
     }
@@ -77,7 +77,7 @@ cartRouter.post('/:cid/product/:pid', async(req, res) => {
             else{
                 cart.products.push({id: req.params.pid, quantity: 1});
             }
-            await fs.promises.writeFile(path, JSON.stringify(carts));
+            await fs.promises.writeFile(path, JSON.stringify(carts, null, 2));
             res.json({message: 'Se agregó el producto'});
         }
         else{

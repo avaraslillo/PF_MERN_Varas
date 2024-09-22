@@ -1,1 +1,123 @@
-[{"id":"27a194fe-eb78-42f4-89b0-4485682eef25","title":"Funko POP Star Wars The Mandalorian","description":"Funko representando a The Mandalorian con Grogu","code":"FSW402","price":"10.99","status":"true","stock":"2152","category":"Funko","thumbnails":["https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCL/114145450_01/w=800,h=800,fit=pad","https://images-cdn.ubuy.co.in/65c91c552200781f0955f3ca-funko-pop-star-wars-mandalorian-with.jpg"]},{"id":"d4643f41-9e50-4fce-950a-a70a13e70076","title":"Funko POP The Coon","description":"Funko representando a Eric Cartman disfrazado de The Coon","code":"FSP07","price":"9.85","status":"true","stock":"1300","category":"Funko","thumbnails":["https://m.media-amazon.com/images/I/61oG2splLJL.jpg","https://pop-figures.com/media/img/figurine/7-funko-pop-figure-south-park-the-coon-box.jpg"]},{"id":"8b074016-bc13-4132-b9a4-d6b0d9c357c6","title":"Funko POP Moana","description":"Funko representando a Moana, princesa polinesica","code":"FDIS213","price":"9.98","status":"true","stock":"1500","category":"Funko","thumbnails":["https://http2.mlstatic.com/D_NQ_NP_754193-MLA74651909418_022024-O.webp"]},{"id":"20ec71d9-36bb-49d3-b5ab-513a36291911","title":"Funko POP Iron Man Lights Up","description":"Funko representando a Iron Man. Al presionar un botón, se enciende una luz","code":"FM380","price":"15.99","status":"true","stock":"1200","category":"Funko","thumbnails":["https://http2.mlstatic.com/D_NQ_NP_803535-MLC31879219288_082019-O.webp","https://http2.mlstatic.com/D_NQ_NP_957596-MLC31879186050_082019-O.webp"]}]
+[
+  {
+    "id": "27a194fe-eb78-42f4-89b0-4485682eef25",
+    "title": "Funko POP Star Wars The Mandalorian",
+    "description": "Funko representando a The Mandalorian con Grogu",
+    "code": "FSW402",
+    "price": "10.99",
+    "status": "true",
+    "stock": "2152",
+    "category": "Funko",
+    "thumbnails": [
+      "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCL/114145450_01/w=800,h=800,fit=pad",
+      "https://images-cdn.ubuy.co.in/65c91c552200781f0955f3ca-funko-pop-star-wars-mandalorian-with.jpg"
+    ]
+  },
+  {
+    "id": "d4643f41-9e50-4fce-950a-a70a13e70076",
+    "title": "Funko POP The Coon",
+    "description": "Funko representando a Eric Cartman disfrazado de The Coon",
+    "code": "FSP07",
+    "price": "9.85",
+    "status": "true",
+    "stock": "1300",
+    "category": "Funko",
+    "thumbnails": [
+      "https://m.media-amazon.com/images/I/61oG2splLJL.jpg",
+      "https://pop-figures.com/media/img/figurine/7-funko-pop-figure-south-park-the-coon-box.jpg"
+    ]
+  },
+  {
+    "id": "8b074016-bc13-4132-b9a4-d6b0d9c357c6",
+    "title": "Funko POP Moana",
+    "description": "Funko representando a Moana, princesa polinesica",
+    "code": "FDIS213",
+    "price": "9.98",
+    "status": "true",
+    "stock": "1500",
+    "category": "Funko",
+    "thumbnails": [
+      "https://http2.mlstatic.com/D_NQ_NP_754193-MLA74651909418_022024-O.webp"
+    ]
+  },
+  {
+    "id": "20ec71d9-36bb-49d3-b5ab-513a36291911",
+    "title": "Funko POP Iron Man Lights Up",
+    "description": "Funko representando a Iron Man. Al presionar un botón, se enciende una luz",
+    "code": "FM380",
+    "price": "15.99",
+    "status": "true",
+    "stock": "1200",
+    "category": "Funko",
+    "thumbnails": [
+      "https://http2.mlstatic.com/D_NQ_NP_803535-MLC31879219288_082019-O.webp",
+      "https://http2.mlstatic.com/D_NQ_NP_957596-MLC31879186050_082019-O.webp"
+    ]
+  },
+  {
+    "id": "a3d1a4a9-df6f-4dc1-9e3e-93e311bfba3e",
+    "title": "Funko POP Ahsoka",
+    "description": "Funko representando a Ahsoka, la padawan de Anakin Skywalker",
+    "code": "FSW409",
+    "price": "9.99",
+    "status": "true",
+    "stock": "2300",
+    "category": "Funko",
+    "thumbnails": [
+      "https://gcjuegos.cl/1283-large_default/funko-pop-star-wars-clone-wars-ahsoka-tano-409.jpg",
+      "https://i.pinimg.com/originals/84/14/b6/8414b6f5d8b360d478815694fcd27de2.jpg"
+    ]
+  },
+  {
+    "id": "0f2b9978-4788-4a46-986b-7fb89d399d6d",
+    "title": "Funko POP Ice Bear",
+    "description": "Funko representando a Polar, de la serie We Bare Bears",
+    "code": "FANI551",
+    "price": "8.99",
+    "status": "true",
+    "stock": "1500",
+    "category": "Funko",
+    "thumbnails": [
+      "https://http2.mlstatic.com/D_NQ_NP_924958-MLC72948298185_112023-O.webp",
+      "https://i.ebayimg.com/images/g/H28AAOSwr31kHhVg/s-l1200.jpg"
+    ]
+  },
+  {
+    "id": "068f42d2-7f7b-4cd4-b2a5-6d4d9beab23d",
+    "title": "Funko POP Daria",
+    "description": "Funko representando a Daria, protagonista de la serie homomina",
+    "code": "FANI1439",
+    "price": "8.99",
+    "status": "true",
+    "stock": "1500",
+    "category": "Funko",
+    "thumbnails": [
+      "https://theseekercl.com/cdn/shop/files/1439-funko-pop-figure-daria-daria-morgendorffer-chase.jpg?v=1717707410&width=1445",
+      "https://cdnx.jumpseller.com/mundofunko-cl/image/43538946/resize/640/640?1702512985"
+    ]
+  },
+  {
+    "id": "49b063a0-2871-45df-bb97-6a442f8c6563",
+    "title": "Funko POP Belly Dance Homer",
+    "description": "Funko representando a Homer Simpson disfrazado de bailarina",
+    "code": "FTV1144",
+    "price": "12.99",
+    "status": "true",
+    "stock": "1300",
+    "category": "Funko",
+    "thumbnails": []
+  },
+  {
+    "id": "8d786805-c7c4-443c-abff-a464806d1140",
+    "title": "Funko POP Bender",
+    "description": "Funko representando a Bender de la serie Futurama",
+    "code": "FANI29",
+    "price": "13.99",
+    "status": "true",
+    "stock": "800",
+    "category": "Funko",
+    "thumbnails": [
+      "https://http2.mlstatic.com/D_NQ_NP_792504-CBT69369981223_052023-O.webp"
+    ]
+  }
+]

@@ -78,6 +78,15 @@ Este endpoint genera un nuevo carrito de compra. Puede ser accedido mediante la 
 
 Este endpoint agrega un producto a un carrito de compra ya existente. Puede ser accedido mediante la siguiente URL (usando método POST): http://localhost:8080/api/carts/{$cid}/product/{$pid}, con $cid siendo el ID del carrito de compra y $pid siendo el ID del producto.
 
+### Visualizar el listado de productos.
+
+Este endpoint obtiene el listado de productos y los muestra en una tabla. Puede ser accedido mediante la siguiente URL (directamente desde el navegador): http://localhost:8080
+
+### Visualizar el listado de productos en tiempo real.
+
+Este endpoint obtiene el listado de productos y los muestra en una tabla. Además, se muestran alertas en tiempo real cada vez que se agrega o elimina un producto, gracias al protocolo Websocket. Puede ser accedido mediante la siguiente URL (directamente desde el navegador): http://localhost:8080/realtimeproducts
+
+
 ## Manejo de Errores
 
 Esta API incluye manejo básico de errores:
