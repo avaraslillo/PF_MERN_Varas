@@ -27,6 +27,11 @@ const agregarImagenes = (thumbnails) => {
   return nuevoSetDeImagenes;
 }
 
+const eliminarProducto = (id) => {
+  // Envia un mensaje al servidor a través del canal de Websocket
+  socket.emit('eliminarProducto', id);
+}
+
 socket.on('connect', () => {
     console.log('Conectado al servidor WebSocket');
   });
@@ -66,6 +71,13 @@ socket.on('connect', () => {
     let td8=document.createElement('td');
     td8.appendChild(agregarImagenes(newProduct.thumbnails));
     tr.appendChild(td8);
+    let td9=document.createElement('td');
+    let botonEliminar=document.createElement('button');
+    botonEliminar.setAttribute('class','btn btn-danger');
+    botonEliminar.onclick=()=>{eliminarProducto(newProduct.id)};
+    botonEliminar.innerHTML="Eliminar";
+    td9.appendChild(botonEliminar);
+    tr.appendChild(td9);
     tabla.appendChild(tr);
     console.log('Nuevo producto agregado:', newProduct);
     Swal.fire({

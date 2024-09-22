@@ -22,3 +22,8 @@ table{
     height: 100px;
     object-fit: cover;
   }
+
+.btn-danger{
+    background-color: rgb(253, 11, 11);
+    color: white;
+}

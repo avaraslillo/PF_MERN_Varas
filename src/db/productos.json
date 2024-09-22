@@ -110,21 +110,7 @@
     ]
   },
   {
-    "id": "24439393-bb96-4fd8-852a-312c37293898",
-    "title": "Funko POP Duffman",
-    "description": "Funko representando al personaje Duffman de Los Simpson",
-    "code": "FTV902",
-    "price": "11.99",
-    "status": "true",
-    "stock": "1500",
-    "category": "Funko",
-    "thumbnails": [
-      "https://http2.mlstatic.com/D_NQ_NP_843982-MLM44830163568_022021-O.webp",
-      "https://i.ebayimg.com/images/g/iKUAAOSwIQdij6dG/s-l500.jpg"
-    ]
-  },
-  {
-    "id": "eedae7c3-c6b9-47c9-94bf-31c0b20e54e6",
+    "id": "741636f4-e36c-4614-aa89-cb7dde5b4785",
     "title": "Funko POP Belly Dance Homer",
     "description": "Funko representando a Homer Simpson disfrazado de bailarina",
     "code": "FTV1144",

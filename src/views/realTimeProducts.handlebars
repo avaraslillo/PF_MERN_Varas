@@ -10,6 +10,7 @@
             <th>Stock</th>
             <th>Categoría</th>
             <th>thumbnails</th>
+            <th>Acciones</th>
         </tr>
 
         <tbody id="tbody">
@@ -37,6 +38,9 @@
                         {{else}}
                             <p>No hay imágenes</p>
                         {{/if}}
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" onclick="eliminarProducto('{{id}}')">Eliminar</button>
                     </td>
                 </tr>
             {{/each}}

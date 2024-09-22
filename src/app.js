@@ -47,6 +47,18 @@ io.on('connection', socket => {
         console.log(data);
     })
 
+    socket.on('eliminarProducto', async(id) => {
+        try{
+            await fetch(`http://localhost:8080/api/products/${id}`, {
+                method: 'DELETE'
+            });
+        }
+        catch(error){
+            console.log(error);
+            res.status(500).json({message: 'Hubo un error en la conexión con el Websocket'});
+        }
+    })
+
     
 
 
