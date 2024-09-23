@@ -16,13 +16,13 @@ Para empezar con este proyecto, seguir estos pasos:
 1. Clonar el repositorio:
 
     ```bash
-    git clone https://github.com/avaraslillo/1ENT_MERN_Varas.git
+    git clone https://github.com/avaraslillo/2ENT_MERN_Varas.git
     ```
 
 2. Navegar al directorio del proyecto:
 
     ```bash
-    cd 1ENT_MERN_VARAS
+    cd 2ENT_MERN_VARAS
     ```
 
 3. Instalar las dependencias:

@@ -46,6 +46,42 @@
             {{/each}}
         </tbody>
     </table>
+    <br>
+    <form id="form-product">
+        <div class="form-group">
+            <label for="title">Título</label>
+            <input type="text" class="form-control" id="title" name="title">
+        </div>
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <input type="text" class="form-control" id="description" name="description">
+        </div>
+        <div class="form-group">
+            <label for="code">Código</label>
+            <input type="text" class="form-control" id="code" name="code">
+        </div>
+        <div class="form-group">
+            <label for="price">Precio</label>
+            <input type="text" class="form-control" id="price" name="price">
+        </div>
+        <div class="form-group">
+            <label for="status">Estado</label>
+            <input type="text" class="form-control" id="status" name="status">
+        </div>
+        <div class="form-group">
+            <label for="stock">Stock</label>
+            <input type="text" class="form-control" id="stock" name="stock">
+        </div>
+        <div class="form-group">
+            <label for="category">Categoría</label>
+            <input type="text" class="form-control" id="category" name="category">
+        </div>
+        <div class="form-group">
+            <label for="thumbnails">Imágenes</label>
+            <input type="text" class="form-control" id="thumbnails" name="thumbnails">
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="agregarProducto()">Agregar</button>
+    </form>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>

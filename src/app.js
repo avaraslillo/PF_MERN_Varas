@@ -37,7 +37,7 @@ const io = new Server(httpServer);
 
 io.on('connection', socket => {
 
-    console.log('Se conectó un cliente');
+    console.log('Cliente conectado');
 
       // Enviar un mensaje a todos los clientes conectados
     io.emit('message', 'Hola, soy el servidor!');
