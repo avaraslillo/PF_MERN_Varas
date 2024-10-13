@@ -1,4 +1,4 @@
-# Segunda entrega PF para Curso Backend Avanzado CH
+# PF para Curso Backend Avanzado CH
 
 Este proyecto es una API que maneja un listado de productos y un listado de carritos de compra a los cuales es posible agregar productos.
 
