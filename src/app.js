@@ -1,5 +1,7 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import handlebars from 'express-handlebars';
+import mongoose from 'mongoose';
 import cartRouter from './routes/cart.route.js';
 import productRouter from './routes/product.route.js';
 import viewsRouter from './routes/views.route.js';
@@ -8,6 +10,17 @@ import __dirname from './utils.js';
 import { Server } from 'socket.io';
 
 const app = express();
+
+dotenv.config(); //nos permitia poder trabjar con las variables de entorno
+
+//Leer y almacenar variables de entorno
+const URIConexion = process.env.MONGODB_CONNECTION;
+
+//Conexión a la base de datos
+mongoose.connect(URIConexion)
+    .then( () => console.log('Conectado a la base de datos'))
+    .catch((error) => console.error('Error en conexion:', error))
+;
 
 
 app.engine('handlebars', handlebars.engine());

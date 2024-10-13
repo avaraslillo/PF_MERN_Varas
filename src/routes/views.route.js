@@ -9,7 +9,7 @@ viewsRouter.get('/', async(req, res) => {
         const response = await fetch(urlProductRouter)
         .then(response => response.json())
         .then(data =>{ 
-            const listOfProducts = data;
+            const listOfProducts = data.payload;
 
             res.render('home', {
                 listOfProducts: listOfProducts,

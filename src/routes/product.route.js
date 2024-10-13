@@ -1,39 +1,53 @@
 import { Router } from 'express';
-import fs from 'fs';
-import { v4 as uuidv4 } from 'uuid';
 import io from '../app.js';
+import productModel from '../models/product.model.js';
 const productRouter = Router();
-const path = './src/db/productos.json';
 
-//Función para verificar si el archivo existe
-const archivoExiste = async () => {
-    try {
-        await fs.promises.access(path);
-    } catch (error) {
-        // Si el archivo no existe, es creado con un arreglo vacío
-        await fs.promises.writeFile(path, '[]');
-    }
-};
 
 //Función para obtener todos los productos
 productRouter.get('/', async(req, res) => {
     try{
-        await archivoExiste();
-        const limit = parseInt(req.query.limit) || 1000;
+        const limit = req.query.limit ? req.query.limit: 10;
+        const page = req.query.page ? req.query.page: 1;
+        const sort = req.query.sort ? req.query.sort: null;
+        const query = req.query.q ? req.query.q: null;
+        const products = await productModel.find(query).sort().limit(limit).skip((page - 1) * limit);
 
-        const fileOfProducts = await fs.promises.readFile(path, 'utf-8');
-        const products = JSON.parse(fileOfProducts);
-        const productsWithLimit = products.length <= limit ? products : products.slice(0, limit);
-        if(productsWithLimit.length === 0){
-            return res.status(404).json({message: 'No hay productos cargados'});
+        const totalCount = await productModel.countDocuments(query);
+        const totalPages = Math.ceil(totalCount / limit);
+        if(products.length === 0){
+            return res.status(404).json(
+                {"status": "error",
+                "payload":{"message": 'No hay productos cargados'},
+                "totalPages": totalPages,
+                "prevPage": (page - 1)>0 ? (page - 1) : null,
+                "nextPage": (page + 1)<=totalPages ? (page + 1) : null,
+                "page": page,
+                "hasPrevPage": (page - 1)>0 ? true : false,
+                "hasNextPage": (page + 1)<=totalPages ? true : false,
+                "prevLink": (page - 1)>0 ? "" : null,
+                "nextLink": (page - 1)>0 ? "" : null},
+
+            );
         }
         else{
-            return res.json(productsWithLimit);
+            return res.json({
+                "status": "success", 
+                "payload": products,
+                "totalPages": totalPages,
+                "prevPage": (page - 1)>0 ? (page - 1) : null,
+                "nextPage": (page + 1)<=totalPages ? (page + 1) : null,
+                "page": page,
+                "hasPrevPage": (page - 1)>0 ? true : false,
+                "hasNextPage": (page + 1)<=totalPages ? true : false,
+                "prevLink": (page - 1)>0 ? "" : null,
+                "nextLink": (page - 1)>0 ? "" : null
+            });
         }
     }
     catch(error){
         console.log(error);
-        return res.status(500).json({message: 'Hubo un error al leer el archivo'});
+        return res.status(500).json({status:'error',message: 'Hubo un error en el servidor'});
     }
 
 });
@@ -41,12 +55,9 @@ productRouter.get('/', async(req, res) => {
 //Función para obtener un solo producto por su ID
 productRouter.get('/:id', async(req, res) => {
     try{
-        await archivoExiste();
-        const fileOfProducts = await fs.promises.readFile(path, 'utf-8');
-        const products = JSON.parse(fileOfProducts);
-        const product = products.find(product => product.id == req.params.id);
+        const product = await productModel.findById(req.params.id);
         if(product){
-           return res.json(product);
+           return res.json({"status": "success", "payload": product});
         }
         else{
             return res.status(404).json({message: 'No se encontró el producto'});
@@ -54,7 +65,7 @@ productRouter.get('/:id', async(req, res) => {
     }
     catch(error){
         console.log(error);
-        return res.status(500).json({message: 'Hubo un error al leer el archivo'});
+        return res.status(500).json({status:'error',message: 'Hubo un error en el servidor'});
     }
 });
 
@@ -66,37 +77,13 @@ productRouter.post('/', async(req, res) => {
         if(!title || !description || !code || !price || !status || !stock || !category){
            return res.status(400).json({message: 'Faltan campos obligatorios'});
         }
-        const newProduct = {
-            id: uuidv4(),
-            title: title,
-            description: description,
-            code: code,
-            price: price,
-            status: status,
-            stock: stock,
-            category: category,
-            thumbnails: (thumbnails) ? thumbnails : []
-        };
-        await archivoExiste();
-        const fileOfProducts = await fs.promises.readFile(path, 'utf-8');
-        //Si el archivo está vacío, se ingresa el primer producto
-        if(fileOfProducts.length === 0){
-            await fs.promises.writeFile(path, JSON.stringify([newProduct], null, 2));
-            res.status(201).json({message: 'Se agregó el producto'});
-            io.emit('newProduct', product);
-        }
-        //Si el archivo no está vacío, se agrega el nuevo producto
-        else{
-            const products = JSON.parse(fileOfProducts);
-            products.push(newProduct);
-            await fs.promises.writeFile(path, JSON.stringify(products, null, 2));
-            res.status(201).json({message: 'Se agregó el producto'});
-            io.emit('newProduct', newProduct);
-        }
+        const newProduct = await productModel.create(req.body);
+        res.status(201).json({"status": "success", "payload":{"message": 'Se agregó el producto',"product": newProduct }});
+        io.emit('newProduct', newProduct);
     }
     catch(error){
         console.log(error);
-        res.status(500).json({message: 'Hubo un error al leer el archivo'});
+        res.status(500).json({status:'error',message: 'Hubo un error en el servidor'});
     }
 });
 
@@ -108,30 +95,13 @@ productRouter.put('/:id', async(req, res) => {
         if(!title || !description || !code || !price || !status || !stock || !category){
            return res.status(400).json({message: 'Faltan campos obligatorios'});
         }
-        await archivoExiste();
-        const fileOfProducts = await fs.promises.readFile(path, 'utf-8');
-        const products = JSON.parse(fileOfProducts);
-        let product = products.find(product => product.id == req.params.id);
-        if(product){
-            product.title = title;
-            product.description = description;
-            product.code = code;
-            product.price = price;
-            product.status = status;
-            product.stock = stock;
-            product.category = category;
-            product.thumbnails = (thumbnails) ? thumbnails : [];
-            await fs.promises.writeFile(path, JSON.stringify(products, null, 2));
-            res.status(201).json({message: 'Se actualizó el producto'});
-            
-        }
-        else{
-            res.status(404).json({message: 'No se encontró el producto'});
-        }
+        const updatedProduct = await productModel.updateOne({_id: req.params.id}, req.body);
+        res.status(201).json({"status": "success", "payload":{"message": 'Se actualizo el producto',"product": updatedProduct }});
+        io.emit('updateProduct', product);
     }
     catch(error){
         console.log(error);
-        res.status(500).json({message: 'Hubo un error al leer el archivo'});
+        res.status(500).json({status:'error',message: 'Hubo un error en el servidor'});
     }
 });
 
@@ -141,20 +111,13 @@ productRouter.delete('/:id', async(req, res) => {
         await archivoExiste();
         const fileOfProducts = await fs.promises.readFile(path, 'utf-8');
         let products = JSON.parse(fileOfProducts);
-        let product = products.find(product => product.id == req.params.id);
-        if(product){
-            products = products.filter(product => product.id != req.params.id);
-            await fs.promises.writeFile(path, JSON.stringify(products, null, 2));
-            res.json({message: 'Se eliminó el producto'});
-            io.emit('deleteProduct', product);
-        }
-        else{
-            res.status(404).json({message: 'No se encontró el producto'});
-        }
+        const product = productModel.deleteOne({_id: req.params.id});
+        res.json({"status": "success", "payload":{"message": 'Se eliminó el producto'}});
+        io.emit('deleteProduct', product);
     }
     catch(error){
         console.log(error);
-        res.status(500).json({message: 'Hubo un error al leer el archivo'});
+        res.status(500).json({status:'error',message: 'Hubo un error en el servidor'});
     }
 
 });
