@@ -53,8 +53,10 @@ cartRouter.post('/:cid/product/:pid', async(req, res) => {
         const cart = await cartModel.findById(req.params.cid);
 
         if(cart){
-            const product = cart.products.id(product_id);
-            if(product){
+            const productIndex = cart.products.findIndex(product => product.product == product_id);
+            
+            if(productIndex!==-1){
+                const product = cart.products[productIndex];
                 product.quantity = product.quantity + 1;
             }
             else{
@@ -126,10 +128,15 @@ cartRouter.put('/:cid/product/:pid', async(req, res) => {
 
 cartRouter.delete('/:cid', async(req, res) => {
     try{
-        const cart = await cartModel.findByIdAndDelete(req.params.cid);
+        const cart = await cartModel.findById(req.params.cid);
         if(cart){
-            res.json({status: 'success', message: 'Se elimino el carrito'});
+            const array_of_products = cart.products;
+            for(const product of array_of_products){
+                await product.remove();
+            }
+            res.json({status: 'success', message: 'Se eliminaron todos los productos del carrito'});
         }
+
         else{
             res.status(404).json({status: 'error', message: 'No se encontró el carrito'});
         }
