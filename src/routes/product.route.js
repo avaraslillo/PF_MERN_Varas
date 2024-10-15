@@ -8,7 +8,7 @@ const productRouter = Router();
 productRouter.get('/', async(req, res) => {
     try{
         const limit = req.query.limit ? req.query.limit: 10;
-        const page = req.query.page ? req.query.page: 1;
+        const page = req.query.page ? parseInt(req.query.page): parseInt(1);
         const sort = req.query.sort ? req.query.sort: null;
         const query = req.query.q ? req.query.q: null;
         const products = await productModel.find(query).sort().limit(limit).skip((page - 1) * limit);
@@ -20,13 +20,14 @@ productRouter.get('/', async(req, res) => {
                 {"status": "error",
                 "payload":{"message": 'No hay productos cargados'},
                 "totalPages": totalPages,
-                "prevPage": (page - 1)>0 ? (page - 1) : null,
-                "nextPage": (page + 1)<=totalPages ? (page + 1) : null,
+                "prevPage": parseInt(page - 1)>0 ? parseInt(page - 1) : null,
+                "nextPage": parseInt(page + 1)<=totalPages ? parseInt(page + 1) : null,
                 "page": page,
-                "hasPrevPage": (page - 1)>0 ? true : false,
-                "hasNextPage": (page + 1)<=totalPages ? true : false,
-                "prevLink": (page - 1)>0 ? "" : null,
-                "nextLink": (page - 1)>0 ? "" : null},
+                "hasPrevPage": parseInt(page - 1)>0 ? true : false,
+                "hasNextPage": parseInt(page + 1)<=totalPages ? true : false,
+                "prevLink": parseInt(page - 1)>0 ? `/api/products?page=${parseInt(page - 1)}` : null,
+                "nextLink": parseInt(page + 1)<=totalPages ? `/api/products?page=${parseInt(page + 1)}` : null
+                }
 
             );
         }
@@ -35,13 +36,13 @@ productRouter.get('/', async(req, res) => {
                 "status": "success", 
                 "payload": products,
                 "totalPages": totalPages,
-                "prevPage": (page - 1)>0 ? (page - 1) : null,
-                "nextPage": (page + 1)<=totalPages ? (page + 1) : null,
+                "prevPage": parseInt(page - 1)>0 ? parseInt(page - 1) : null,
+                "nextPage": parseInt(page + 1)<=totalPages ? parseInt(page + 1) : null,
                 "page": page,
-                "hasPrevPage": (page - 1)>0 ? true : false,
-                "hasNextPage": (page + 1)<=totalPages ? true : false,
-                "prevLink": (page - 1)>0 ? "" : null,
-                "nextLink": (page - 1)>0 ? "" : null
+                "hasPrevPage": parseInt(page - 1)>0 ? true : false,
+                "hasNextPage": parseInt(page + 1)<=totalPages ? true : false,
+                "prevLink": parseInt(page - 1)>0 ? `/api/products?page=${parseInt(page - 1)}` : null,
+                "nextLink": parseInt(page + 1)<=totalPages ? `/api/products?page=${parseInt(page + 1)}` : null
             });
         }
     }

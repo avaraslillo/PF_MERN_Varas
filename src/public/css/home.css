@@ -23,7 +23,7 @@ table{
     object-fit: cover;
   }
 
-.btn-danger{
-    background-color: rgb(253, 11, 11);
-    color: white;
+.pagination{
+    display: flex;
+    justify-content: right;
 }

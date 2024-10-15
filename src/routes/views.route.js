@@ -10,9 +10,12 @@ viewsRouter.get('/', async(req, res) => {
         .then(response => response.json())
         .then(data =>{ 
             const listOfProducts = data.payload;
-
             res.render('home', {
                 listOfProducts: listOfProducts,
+                hasPrevPage: data.hasPrevPage,
+                hasNextPage: data.hasNextPage,
+                prevPage: data.prevPage,
+                nextPage: data.nextPage,
                 style: 'home.css'
             });
         });
@@ -33,10 +36,13 @@ viewsRouter.get('/realtimeproducts', async(req, res) => {
         const response = await fetch(urlProductRouter)
         .then(response => response.json())
         .then(data =>{ 
-            const listOfProducts = data;
-
+            const listOfProducts = data.payload;
             res.render('realTimeProducts', {
                 listOfProducts: listOfProducts,
+                hasPrevPage: data.hasPrevPage,
+                hasNextPage: data.hasNextPage,
+                prevPage: data.prevPage,
+                nextPage: data.nextPage,
                 style: 'home.css'
             });
         });

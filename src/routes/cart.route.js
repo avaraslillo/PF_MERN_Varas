@@ -1,18 +1,8 @@
 import { Router } from 'express';
-import fs from 'fs';
 import cartModel from '../models/cart.model.js';
 const cartRouter = Router();
 const path = './src/db/carritos.json';
 
-//Función para verificar si el archivo existe
-const archivoExiste = async () => {
-    try {
-        await fs.promises.access(path);
-    } catch (error) {
-        // Si el archivo no existe, es creado con un arreglo vacío
-        await fs.promises.writeFile(path, '[]');
-    }
-};
 
 //Función para agregar un carrito
 cartRouter.post('/', async(req, res) => {
@@ -79,6 +69,7 @@ cartRouter.post('/:cid/product/:pid', async(req, res) => {
 
 });
 
+//Función para eliminar un producto de un carrito
 cartRouter.delete('/:cid/product/:pid', async(req, res) => {
     try{
         const product_id = req.params.pid;
@@ -103,15 +94,18 @@ cartRouter.delete('/:cid/product/:pid', async(req, res) => {
     }
 });
 
+//Función para actualizar la cantidad de ejemplares de un producto en un carrito
 cartRouter.put('/:cid/product/:pid', async(req, res) => {
     try{
         const product_id = req.params.pid;
+        const quantity = req.body.quantity;
         const cart = await cartModel.findById(req.params.cid);
         if(cart){
-            const product = cart.products.id(product_id);
-            if(product){
-                product.quantity = req.body.quantity;
-                res.json({status: 'success', message: 'Se actualizó el producto'});
+            const productIndex = cart.products.findIndex(product => product.product == product_id);
+            
+            if(productIndex!==-1){
+                const product = cart.products[productIndex];
+                product.quantity = quantity;
             }
             else{
                 res.status(404).json({status: 'error', message: 'No se encontró el producto'});
@@ -126,6 +120,7 @@ cartRouter.put('/:cid/product/:pid', async(req, res) => {
     }
 });
 
+//Función para eliminar todos los productos de un carrito
 cartRouter.delete('/:cid', async(req, res) => {
     try{
         const cart = await cartModel.findById(req.params.cid);

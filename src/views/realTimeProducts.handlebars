@@ -1,6 +1,6 @@
 <div>
-    <h1>Almacén de Funko POPs</h1>
-    <table>
+    <h1 class="px-3">Almacén de Productos Geek</h1>
+    <table class="table table-bordered">
         <tr id="thead">
             <th>Título</th>
             <th>Descripción</th>
@@ -40,6 +40,8 @@
                         {{/if}}
                     </td>
                     <td>
+                        <button class="btn btn-primary">Agregar al Carrito</button>
+                        <button class="btn btn-success">Ver Detalles</button>
                         <button class="btn btn-danger" onclick="eliminarProducto('{{id}}')">Eliminar</button>
                     </td>
                 </tr>
