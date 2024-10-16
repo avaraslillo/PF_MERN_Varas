@@ -10,8 +10,10 @@ productRouter.get('/', async(req, res) => {
         const limit = req.query.limit ? req.query.limit: 10;
         const page = req.query.page ? parseInt(req.query.page): parseInt(1);
         const sort = req.query.sort ? req.query.sort: null;
-        const query = req.query.q ? req.query.q: null;
-        const products = await productModel.find(query).sort().limit(limit).skip((page - 1) * limit);
+        const query = req.query.query ? req.query.query: null;
+        const products = await productModel.find(query).sort(
+            sort ? { price: (sort === "desc" ? -1 : 1 )}  : null
+        ).limit(limit).skip((page - 1) * limit);
 
         const totalCount = await productModel.countDocuments(query);
         const totalPages = Math.ceil(totalCount / limit);

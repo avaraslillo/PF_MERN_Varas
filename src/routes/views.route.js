@@ -6,7 +6,19 @@ const urlProductRouter='http://localhost:8080/api/products';
 
 viewsRouter.get('/', async(req, res) => {
     try{
-        const response = await fetch(urlProductRouter)
+        const limit = req.query.limit;
+        const sort = req.query.sort;
+        const query = req.query.q;
+        const page = req.query.page;
+        const searchURLParams ={
+            limit: limit,
+            sort: sort,
+            query: query,
+            page: page
+        }
+        const url = `${urlProductRouter}?${new URLSearchParams(searchURLParams)}`;
+
+        const response = await fetch(url)
         .then(response => response.json())
         .then(data =>{ 
             const listOfProducts = data.payload;

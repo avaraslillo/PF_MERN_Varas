@@ -60,6 +60,23 @@ io.on('connection', socket => {
         console.log(data);
     })
 
+    socket.on('enlace', async(data) => {
+        try{
+            await fetch('http://localhost:8080/api/products', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+        catch(error){
+            console.log(error);
+            res.status(500).json({message: 'Hubo un error en la solicitud'});
+        }
+    });
+
+
     socket.on('eliminarProducto', async(id) => {
         try{
             await fetch(`http://localhost:8080/api/products/${id}`, {
