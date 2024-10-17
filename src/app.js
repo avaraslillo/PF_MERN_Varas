@@ -28,6 +28,8 @@ app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 
+app.use(express.static(__dirname+'/public'));
+
 const port = 8080;
 
 app.use(express.json());
@@ -38,7 +40,7 @@ app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
 
 
-app.use(express.static(__dirname+'/public'));
+
 
 
 

@@ -8,12 +8,14 @@ viewsRouter.get('/', async(req, res) => {
     try{
         const limit = req.query.limit;
         const sort = req.query.sort;
-        const query = req.query.q;
+        const category = req.query.category;
+        const stock = req.query.stock;
         const page = req.query.page;
         const searchURLParams ={
             limit: limit,
             sort: sort,
-            query: query,
+            category: category,
+            stock: stock,
             page: page
         }
         const url = `${urlProductRouter}?${new URLSearchParams(searchURLParams)}`;
@@ -28,6 +30,8 @@ viewsRouter.get('/', async(req, res) => {
                 hasNextPage: data.hasNextPage,
                 prevPage: data.prevPage,
                 nextPage: data.nextPage,
+                prevLink: data.prevLink,
+                nextLink: data.nextLink,
                 style: 'home.css'
             });
         });
@@ -45,7 +49,21 @@ viewsRouter.get('/', async(req, res) => {
 
 viewsRouter.get('/realtimeproducts', async(req, res) => {
     try{
-        const response = await fetch(urlProductRouter)
+        const limit = req.query.limit;
+        const sort = req.query.sort;
+        const category = req.query.category;
+        const stock = req.query.stock;
+        const page = req.query.page;
+        const searchURLParams ={
+            limit: limit,
+            sort: sort,
+            category: category,
+            stock: stock,
+            page: page
+        }
+
+        const url = `${urlProductRouter}?${new URLSearchParams(searchURLParams)}`;
+        const response = await fetch(url)
         .then(response => response.json())
         .then(data =>{ 
             const listOfProducts = data.payload;

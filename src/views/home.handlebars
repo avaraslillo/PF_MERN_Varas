@@ -51,11 +51,11 @@
     </table>
     <div class="pagination">
         {{#if hasPrevPage}}
-            <a href="?page={{prevPage}}"><button class="btn btn-info">Anterior</button></a>
+            <a href="{{prevLink}}"><button class="btn btn-info">Anterior</button></a>
         {{/if}}
 
         {{#if hasNextPage}}
-            <a href="?page={{nextPage}}"><button class="btn btn-info">Siguiente</button></a>
+            <a href="{{nextLink}}"><button class="btn btn-info">Siguiente</button></a>
         {{/if}}
     </div>
 </div>

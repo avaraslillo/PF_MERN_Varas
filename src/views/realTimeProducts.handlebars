@@ -48,6 +48,15 @@
             {{/each}}
         </tbody>
     </table>
+        <div class="pagination">
+        {{#if hasPrevPage}}
+            <a href="realtimeproducts/?page={{prevPage}}"><button class="btn btn-info">Anterior</button></a>
+        {{/if}}
+
+        {{#if hasNextPage}}
+            <a href="realtimeproducts/?page={{nextPage}}"><button class="btn btn-info">Siguiente</button></a>
+        {{/if}}
+    </div>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>

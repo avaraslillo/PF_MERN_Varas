@@ -10,25 +10,39 @@ productRouter.get('/', async(req, res) => {
         const limit = req.query.limit ? req.query.limit: 10;
         const page = req.query.page ? parseInt(req.query.page): parseInt(1);
         const sort = req.query.sort ? req.query.sort: null;
-        const query = req.query.query ? req.query.query: null;
-        const products = await productModel.find(query).sort(
-            sort ? { price: (sort === "desc" ? -1 : 1 )}  : null
-        ).limit(limit).skip((page - 1) * limit);
 
-        const totalCount = await productModel.countDocuments(query);
-        const totalPages = Math.ceil(totalCount / limit);
-        if(products.length === 0){
+        const query = {
+        };
+        
+        query.category = req.query.category ? req.query.category  : null;
+        query.stock = req.query.stock ?  parseInt(req.query.stock)  : null;
+
+        const options = {
+            page,
+            limit,
+            sort: sort
+        };
+
+        const result = await productModel.paginate(query, options);
+
+        /*const products = await productModel.find(query).sort(
+            sort ? { price: (sort === "desc" ? -1 : 1 )}  : null
+        ).limit(limit).skip((page - 1) * limit);*/
+
+        //const totalCount = await productModel.countDocuments(query);
+        //const totalPages = Math.ceil(totalCount / limit);
+        if(result.docs.length === 0){
             return res.status(404).json(
                 {"status": "error",
                 "payload":{"message": 'No hay productos cargados'},
-                "totalPages": totalPages,
-                "prevPage": parseInt(page - 1)>0 ? parseInt(page - 1) : null,
-                "nextPage": parseInt(page + 1)<=totalPages ? parseInt(page + 1) : null,
-                "page": page,
-                "hasPrevPage": parseInt(page - 1)>0 ? true : false,
-                "hasNextPage": parseInt(page + 1)<=totalPages ? true : false,
-                "prevLink": parseInt(page - 1)>0 ? `/api/products?page=${parseInt(page - 1)}` : null,
-                "nextLink": parseInt(page + 1)<=totalPages ? `/api/products?page=${parseInt(page + 1)}` : null
+                "totalPages": result.totalPages,
+                "prevPage": parseInt(result.page - 1)>0 ? parseInt(result.page - 1) : null,
+                "nextPage": parseInt(result.page + 1)<=result.totalPages ? parseInt(result.page + 1) : null,
+                "page": result.page,
+                "hasPrevPage": result.hasPrevPage,
+                "hasNextPage": result.hasNextPage,
+                "prevLink": result.hasPrevPage ? `/products?page=${parseInt(result.page - 1)}` : null,
+                "nextLink": result.hasNextPage ? `/products?page=${parseInt(result.page + 1)}` : null
                 }
 
             );
@@ -36,15 +50,15 @@ productRouter.get('/', async(req, res) => {
         else{
             return res.json({
                 "status": "success", 
-                "payload": products,
-                "totalPages": totalPages,
-                "prevPage": parseInt(page - 1)>0 ? parseInt(page - 1) : null,
-                "nextPage": parseInt(page + 1)<=totalPages ? parseInt(page + 1) : null,
-                "page": page,
-                "hasPrevPage": parseInt(page - 1)>0 ? true : false,
-                "hasNextPage": parseInt(page + 1)<=totalPages ? true : false,
-                "prevLink": parseInt(page - 1)>0 ? `/api/products?page=${parseInt(page - 1)}` : null,
-                "nextLink": parseInt(page + 1)<=totalPages ? `/api/products?page=${parseInt(page + 1)}` : null
+                "payload": result.docs,
+                "totalPages": result.totalPages,
+                "prevPage": parseInt(result.page - 1)>0 ? parseInt(result.page - 1) : null,
+                "nextPage": parseInt(result.page + 1)<=result.totalPages ? parseInt(result.page + 1) : null,
+                "page": result.page,
+                "hasPrevPage": result.hasPrevPage,
+                "hasNextPage": result.hasNextPage,
+                "prevLink": result.hasPrevPage ? `/?page=${parseInt(result.page - 1)}` : null,
+                "nextLink": result.hasNextPage ? `/?page=${parseInt(result.page + 1)}` : null
             });
         }
     }
