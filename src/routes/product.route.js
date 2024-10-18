@@ -14,8 +14,9 @@ productRouter.get('/', async(req, res) => {
         const query = {
         };
         
-        query.category = req.query.category ? req.query.category  : null;
-        query.stock = req.query.stock ?  parseInt(req.query.stock)  : null;
+        if (req.query.category) {
+            query.category = req.query.category;
+        }
 
         const options = {
             page,

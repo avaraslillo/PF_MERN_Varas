@@ -12,13 +12,13 @@ viewsRouter.get('/', async(req, res) => {
         const stock = req.query.stock;
         const page = req.query.page;
         const searchURLParams ={
-            limit: limit,
-            sort: sort,
-            category: category,
-            stock: stock,
-            page: page
+            limit: limit || undefined,
+            sort: sort || undefined,
+            category: category || undefined,
+            stock: stock || undefined,
+            page: page || undefined
         }
-        const url = `${urlProductRouter}?${new URLSearchParams(searchURLParams)}`;
+        const url = `${urlProductRouter}?${new URLSearchParams((Object.entries(searchURLParams).filter(([key, value]) => value !== undefined)))}`;
 
         const response = await fetch(url)
         .then(response => response.json())
@@ -55,14 +55,14 @@ viewsRouter.get('/realtimeproducts', async(req, res) => {
         const stock = req.query.stock;
         const page = req.query.page;
         const searchURLParams ={
-            limit: limit,
-            sort: sort,
-            category: category,
-            stock: stock,
-            page: page
+            limit: limit || undefined,
+            sort: sort || undefined,
+            category: category || undefined,
+            stock: stock || undefined,
+            page: page || undefined
         }
 
-        const url = `${urlProductRouter}?${new URLSearchParams(searchURLParams)}`;
+        const url = `${urlProductRouter}?${new URLSearchParams((Object.entries(searchURLParams).filter(([key, value]) => value !== undefined)))}`;
         const response = await fetch(url)
         .then(response => response.json())
         .then(data =>{ 
@@ -87,5 +87,24 @@ viewsRouter.get('/realtimeproducts', async(req, res) => {
         res.status(500).json({message: 'Hubo un error al leer el archivo'});
     }    
 });
+
+viewsRouter.get('/productdetail/:id', async(req, res) => {
+    try{
+        const id = req.params.id;
+        const url = `${urlProductRouter}/${id}`;
+        const product = await fetch(url)
+        .then(response => response.json())
+        .then(data =>{ 
+            const product = data.payload;
+            res.render('productDetail', {product: product,style: 'productDetail.css'});
+        });
+        
+    }
+    catch(error){
+        console.log(error);
+        res.status(500).json({message: 'Hubo un error al leer el archivo'});
+    }    
+});
+
 
 export default viewsRouter;

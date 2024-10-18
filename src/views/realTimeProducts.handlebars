@@ -15,7 +15,7 @@
 
         <tbody id="tbody">
             {{#each listOfProducts}}
-                <tr id="row_{{id}}">
+                <tr id="row_{{_id}}">
                     <td>{{title}}</td>
                     <td>{{description}}</td>
                     <td>{{code}}</td>
@@ -41,8 +41,8 @@
                     </td>
                     <td>
                         <button class="btn btn-primary">Agregar al Carrito</button>
-                        <button class="btn btn-success">Ver Detalles</button>
-                        <button class="btn btn-danger" onclick="eliminarProducto('{{id}}')">Eliminar</button>
+                        <button class="btn btn-success" onclick="verDetalles('{{_id}}')">Ver Detalles</button>
+                        <button class="btn btn-danger" onclick="eliminarProducto('{{_id}}')">Eliminar</button>
                     </td>
                 </tr>
             {{/each}}
@@ -62,3 +62,8 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/index.js"></script>
+<script>
+    function verDetalles(id) {
+        window.location.href = 'productdetail/' + id
+    }
+</script>

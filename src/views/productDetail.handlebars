@@ -1,0 +1,49 @@
+<div>
+    <div class="container blue-container container-fluid full-height-container">
+    <h1 class="px-3">{{product.title}}</h1>
+    <div class="row">
+        <div class="col-4">
+            {{#each product.thumbnails}}
+                <img src="{{this}}" id="thumbnail_{{@index}}" class="thumbnail" alt="thumbnails"
+                size="100px">
+                {{#unless @last}}
+                <br>
+                {{/unless}}
+            {{/each}}
+        </div>
+        <div class="col-8">
+            <table class="table text-white">
+                <tr>
+                    <td><b>Descripción:</b></td> 
+                    <td>{{product.description}}</td>
+                </tr>
+                <tr>
+                    <td><b>Código:</b></td> 
+                    <td>{{product.code}}</td>
+                </tr>
+                <tr>
+                    <td><b>Estatus:</b></td> 
+                    <td>{{product.status}}</td>
+                </tr>
+                <tr>
+                    <td><b>Stock</b></td> 
+                    <td>{{product.stock}}</td>
+                </tr>
+                <tr>
+                    <td><b>Categoría</b></td> 
+                    <td>{{product.category}}</td>
+                </tr>
+                <tr>
+                    <td><b>Precio</b></td> 
+                    <td>{{product.price}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button class="btn btn-primary" onclick="volver()">Agregar al Carrito</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>

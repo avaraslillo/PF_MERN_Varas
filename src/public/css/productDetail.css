@@ -1,0 +1,17 @@
+.blue-container{
+    background-color: rgb(62, 146, 177);
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+
+.full-height-container {
+    height: 100vh; /* 100% de la altura del viewport */
+    display: flex;
+    flex-direction: column;
+  }
+
+.thumbnail {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+  }

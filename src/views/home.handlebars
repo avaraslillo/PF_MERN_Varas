@@ -42,8 +42,8 @@
                         {{/if}}
                     </td>
                     <td>
-                        <button class="btn btn-primary">Agregar al Carrito</button>
-                        <button class="btn btn-success">Ver Detalles</button>
+                        <button class="btn btn-primary" onclick="">Agregar al Carrito</button>
+                        <button class="btn btn-success" onclick="verDetalles('{{_id}}')">Ver Detalles</button>
                     </td>
                 </tr>
             {{/each}}
@@ -59,3 +59,8 @@
         {{/if}}
     </div>
 </div>
+<script>
+    function verDetalles(id) {
+        window.location.href = 'productDetail/' + id
+    }
+</script>
