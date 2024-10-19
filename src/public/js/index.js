@@ -2,6 +2,9 @@
 
 const socket = io();
 
+const verDetalles = (id) =>  {
+  window.location.href = 'productDetail/' + id;
+}
 const agregarImagenes = (thumbnails) => {
   let nuevoSetDeImagenes="";
   if(thumbnails.length == 0){
@@ -31,6 +34,8 @@ const eliminarProducto = (id) => {
   // Envia un mensaje al servidor a través del canal de Websocket
   socket.emit('eliminarProducto', id);
 }
+
+
 
 const buscarProductos = async(page,limit,query,sort)=>{
   const searchURLParams = {

@@ -1,0 +1,54 @@
+<div>
+    <h1 class="px-3">Listado de Productos Carrito</h1>
+    <table class="table table-bordered">
+        <tr id="thead">
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Código</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+            <th>Imágenes</th>
+            <th>Cantidad de Ejemplares</th>
+            <th>Acciones</th>
+        </tr>
+
+        <tbody id="tbody">
+            {{#each listOfProducts}}
+                <tr>
+                    <td>{{product.title}}</td>
+                    <td>{{product.description}}</td>
+                    <td>{{product.code}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product.category}}</td>
+                    <td>
+                        {{#if product.thumbnails}}
+
+                            <div>
+                                {{#each product.thumbnails}}
+                                
+                                    <img src="{{this}}" id="thumbnail_{{@index}}" class="thumbnail" alt="thumbnails"
+                                    size="100px">
+                                    {{#unless @last}}
+                                    <br>
+                                    {{/unless}}
+                                {{/each}}
+                            </div>
+
+                        {{else}}
+                            <p>No hay imágenes</p>
+                        {{/if}}
+                    </td>
+                    <td>{{quantity}}</td>
+                    <td>
+                        <button class="btn btn-success" onclick="verDetalles('{{product._id}}')">Ver Detalles</button>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+<script>
+    function verDetalles(id) {
+        window.location.href = 'productDetail/' + id
+    }
+</script>

@@ -14,39 +14,46 @@
         </tr>
 
         <tbody id="tbody">
-            {{#each listOfProducts}}
+            {{#if listOfProducts}}
+                {{#each listOfProducts}}
+                    <tr>
+                        <td>{{title}}</td>
+                        <td>{{description}}</td>
+                        <td>{{code}}</td>
+                        <td>{{price}}</td>
+                        <td>{{status}}</td>
+                        <td>{{stock}}</td>
+                        <td>{{category}}</td>
+                        <td>
+                            {{#if thumbnails}}
+
+                                <div>
+                                    {{#each thumbnails}}
+                                    
+                                        <img src="{{this}}" id="thumbnail_{{@index}}" class="thumbnail" alt="thumbnails"
+                                        size="100px">
+                                        {{#unless @last}}
+                                        <br>
+                                        {{/unless}}
+                                    {{/each}}
+                                </div>
+
+                            {{else}}
+                                <p>No hay imágenes</p>
+                            {{/if}}
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" onclick="">Agregar al Carrito</button>
+                            <button class="btn btn-success" onclick="verDetalles('{{_id}}')">Ver Detalles</button>
+                        </td>
+                    </tr>
+                {{/each}}
+
+            {{else}}
                 <tr>
-                    <td>{{title}}</td>
-                    <td>{{description}}</td>
-                    <td>{{code}}</td>
-                    <td>{{price}}</td>
-                    <td>{{status}}</td>
-                    <td>{{stock}}</td>
-                    <td>{{category}}</td>
-                    <td>
-                        {{#if thumbnails}}
-
-                            <div>
-                                {{#each thumbnails}}
-                                
-                                    <img src="{{this}}" id="thumbnail_{{@index}}" class="thumbnail" alt="thumbnails"
-                                    size="100px">
-                                    {{#unless @last}}
-                                    <br>
-                                    {{/unless}}
-                                {{/each}}
-                            </div>
-
-                        {{else}}
-                            <p>No hay imágenes</p>
-                        {{/if}}
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" onclick="">Agregar al Carrito</button>
-                        <button class="btn btn-success" onclick="verDetalles('{{_id}}')">Ver Detalles</button>
-                    </td>
+                    <td colspan="9">No hay productos</td>
                 </tr>
-            {{/each}}
+            {{/if}}
         </tbody>
     </table>
     <div class="pagination">
@@ -59,8 +66,4 @@
         {{/if}}
     </div>
 </div>
-<script>
-    function verDetalles(id) {
-        window.location.href = 'productDetail/' + id
-    }
-</script>
+<script src="/js/index2.js"></script>

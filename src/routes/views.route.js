@@ -3,6 +3,9 @@ import fetch from 'node-fetch';
 
 const viewsRouter = Router();
 const urlProductRouter='http://localhost:8080/api/products';
+const urlCartRouter='http://localhost:8080/api/carts';
+
+//Vista principal para obtener todos los productos
 
 viewsRouter.get('/', async(req, res) => {
     try{
@@ -43,10 +46,11 @@ viewsRouter.get('/', async(req, res) => {
     }
     catch(error){
         console.log(error);
-        res.status(500).json({message: 'Hubo un error al leer el archivo'});
+        res.status(500).json({message: 'Hubo un error en el servidor'});
     }    
 });
 
+//Vista para obtener todos los productos con websocket
 viewsRouter.get('/realtimeproducts', async(req, res) => {
     try{
         const limit = req.query.limit;
@@ -77,17 +81,15 @@ viewsRouter.get('/realtimeproducts', async(req, res) => {
             });
         });
 
-        //const listOfProducts = await response.json();
-        
-
-        //res.render('home', {listOfProducts});
     }
     catch(error){
         console.log(error);
-        res.status(500).json({message: 'Hubo un error al leer el archivo'});
+        res.status(500).json({message: 'Hubo un error en el servidor'});
     }    
 });
 
+
+//Vista para obtener el detalle de un producto específico
 viewsRouter.get('/productdetail/:id', async(req, res) => {
     try{
         const id = req.params.id;
@@ -102,9 +104,28 @@ viewsRouter.get('/productdetail/:id', async(req, res) => {
     }
     catch(error){
         console.log(error);
-        res.status(500).json({message: 'Hubo un error al leer el archivo'});
+        res.status(500).json({message: 'Hubo un error en el servidor'});
     }    
 });
+
+//Vista para obtener el carrito con sus productos
+viewsRouter.get('/cart/:cid', async(req, res) => {
+    try{
+        const id = req.params.cid;
+        const url = `${urlCartRouter}/${id}`;
+        const cart = await fetch(url)
+        .then(response => response.json())
+        .then(data =>{ 
+            const listOfProducts = data.payload.products;
+            res.render('cart', {listOfProducts: listOfProducts, cartid: id ,style: 'cart.css'});
+        });
+        
+    }
+    catch(error){
+        console.log(error);
+        res.status(500).json({message: 'Hubo un error en el servidor'});
+    }
+})
 
 
 export default viewsRouter;
