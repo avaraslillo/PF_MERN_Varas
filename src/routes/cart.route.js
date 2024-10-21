@@ -75,22 +75,26 @@ cartRouter.delete('/:cid/product/:pid', async(req, res) => {
         const product_id = req.params.pid;
         const cart = await cartModel.findById(req.params.cid);
         if(cart){
-            const product = cart.products.id(product_id);
+            console.log(cart.products);
+            const product = cart.products.find(product => product.product == product_id);
+            console.log(product);
             if(product){
-                product.remove();
-                res.json({status: 'success', message: 'Se elimino el producto'});
+                const index = cart.products.indexOf(product);
+                cart.products.splice(index, 1);
+                await cart.save();
+                return res.json({status: 'success', message: 'Se eliminó el producto'});
             }
             else{
-                res.status(404).json({status: 'error', message: 'No se encontró el producto'});
+                returnres.status(404).json({status: 'error', message: 'No se encontró el producto'});
             }
         }
         else{
-            res.status(404).json({status: 'error', message: 'No se encontró el carrito'});
+            return res.status(404).json({status: 'error', message: 'No se encontró el carrito'});
         }
     }
     catch(error){
         console.log(error);
-        res.status(500).json({status:'error',message: 'Hubo un error en el servidor'});
+        return res.status(500).json({status:'error',message: 'Hubo un error en el servidor'});
     }
 });
 
@@ -100,19 +104,23 @@ cartRouter.put('/:cid/product/:pid', async(req, res) => {
         const product_id = req.params.pid;
         const quantity = req.body.quantity;
         const cart = await cartModel.findById(req.params.cid);
+        console.log(cart);
         if(cart){
             const productIndex = cart.products.findIndex(product => product.product == product_id);
+            console.log(productIndex);
             
             if(productIndex!==-1){
                 const product = cart.products[productIndex];
                 product.quantity = quantity;
+                await cart.save();
+                return res.json({status: 'success', message: 'Se actualizó la cantidad del producto'});
             }
             else{
-                res.status(404).json({status: 'error', message: 'No se encontró el producto'});
+                return res.status(404).json({status: 'error', message: 'No se encontró el producto'});
             }
         }
         else{
-            res.status(404).json({status: 'error', message: 'No se encontró el carrito'});
+            return res.status(404).json({status: 'error', message: 'No se encontró el carrito'});
         }
     }
     catch(error){
@@ -125,20 +133,18 @@ cartRouter.delete('/:cid', async(req, res) => {
     try{
         const cart = await cartModel.findById(req.params.cid);
         if(cart){
-            const array_of_products = cart.products;
-            for(const product of array_of_products){
-                await product.remove();
-            }
-            res.json({status: 'success', message: 'Se eliminaron todos los productos del carrito'});
+            cart.products = [];
+            await cart.save();
+            return res.json({status: 'success', message: 'Se eliminaron todos los productos del carrito'});
         }
 
         else{
-            res.status(404).json({status: 'error', message: 'No se encontró el carrito'});
+            returnres.status(404).json({status: 'error', message: 'No se encontró el carrito'});
         }
     }
     catch(error){
         console.log(error);
-        res.status(500).json({status:'error',message: 'Hubo un error en el servidor'});
+        return res.status(500).json({status:'error',message: 'Hubo un error en el servidor'});
     }
 });
 

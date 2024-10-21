@@ -28,9 +28,11 @@ viewsRouter.get('/', async(req, res) => {
         .then(data =>{ 
             const listOfProducts = data.payload;
             res.render('home', {
+                defaultCart : "6715339a616f6ea1747f8722",
                 listOfProducts: listOfProducts,
                 hasPrevPage: data.hasPrevPage,
                 hasNextPage: data.hasNextPage,
+                page: data.page,
                 prevPage: data.prevPage,
                 nextPage: data.nextPage,
                 prevLink: data.prevLink,
@@ -73,6 +75,7 @@ viewsRouter.get('/realtimeproducts', async(req, res) => {
             const listOfProducts = data.payload;
             res.render('realTimeProducts', {
                 listOfProducts: listOfProducts,
+                page: data.page,
                 hasPrevPage: data.hasPrevPage,
                 hasNextPage: data.hasNextPage,
                 prevPage: data.prevPage,
@@ -98,7 +101,10 @@ viewsRouter.get('/productdetail/:id', async(req, res) => {
         .then(response => response.json())
         .then(data =>{ 
             const product = data.payload;
-            res.render('productDetail', {product: product,style: 'productDetail.css'});
+            res.render('productDetail', {
+                product: product,
+                defaultCart : "6715339a616f6ea1747f8722",
+                style: 'productDetail.css'});
         });
         
     }

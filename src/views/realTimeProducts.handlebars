@@ -41,7 +41,7 @@
                             {{/if}}
                         </td>
                         <td>
-                            <button class="btn btn-primary">Agregar al Carrito</button>
+                            <button class="btn btn-primary" onclick="agregarAlCarrito('{{_id}}')">Agregar al Carrito</button>
                             <button class="btn btn-success" onclick="verDetalles('{{_id}}')">Ver Detalles</button>
                             <button class="btn btn-danger" onclick="eliminarProducto('{{_id}}')">Eliminar</button>
                         </td>
@@ -57,9 +57,11 @@
         <div class="pagination">
         {{#if hasPrevPage}}
             <a href="realtimeproducts/?page={{prevPage}}"><button class="btn btn-info">Anterior</button></a>
+            &nbsp;
         {{/if}}
-
+        <button class="btn btn-info">{{page}}</button>
         {{#if hasNextPage}}
+            &nbsp;
             <a href="realtimeproducts/?page={{nextPage}}"><button class="btn btn-info">Siguiente</button></a>
         {{/if}}
     </div>

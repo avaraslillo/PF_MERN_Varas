@@ -9,29 +9,30 @@ productRouter.get('/', async(req, res) => {
     try{
         const limit = req.query.limit ? req.query.limit: 10;
         const page = req.query.page ? parseInt(req.query.page): parseInt(1);
-        const sort = req.query.sort ? req.query.sort: null;
-
+        const sort = req.query.sort;
+        const sortOptions = {};
+        if (sort) {
+            sortOptions['price'] = ((sort=='asc') ? 1 : ((sort=='desc') ? -1 : 1));
+        }
         const query = {
         };
         
         if (req.query.category) {
             query.category = req.query.category;
         }
+        if(req.query.stock){
+            query.stock = req.query.stock;
+        }
 
         const options = {
             page,
             limit,
-            sort: sort
+            sort: sortOptions
         };
 
         const result = await productModel.paginate(query, options);
 
-        /*const products = await productModel.find(query).sort(
-            sort ? { price: (sort === "desc" ? -1 : 1 )}  : null
-        ).limit(limit).skip((page - 1) * limit);*/
 
-        //const totalCount = await productModel.countDocuments(query);
-        //const totalPages = Math.ceil(totalCount / limit);
         if(result.docs.length === 0){
             return res.status(404).json(
                 {"status": "error",
@@ -113,6 +114,10 @@ productRouter.put('/:id', async(req, res) => {
         if(!title || !description || !code || !price || !status || !stock || !category){
            return res.status(400).json({message: 'Faltan campos obligatorios'});
         }
+        const product = await productModel.findById(req.params.id);
+        if(!product){
+            return res.status(404).json({message: 'No se encontró el producto'});
+        }
         const updatedProduct = await productModel.updateOne({_id: req.params.id}, req.body);
         res.status(201).json({"status": "success", "payload":{"message": 'Se actualizo el producto',"product": updatedProduct }});
         io.emit('updateProduct', product);
@@ -126,10 +131,11 @@ productRouter.put('/:id', async(req, res) => {
 //Función para eliminar un producto
 productRouter.delete('/:id', async(req, res) => {
     try{
-        await archivoExiste();
-        const fileOfProducts = await fs.promises.readFile(path, 'utf-8');
-        let products = JSON.parse(fileOfProducts);
-        const product = productModel.deleteOne({_id: req.params.id});
+        const product = await productModel.findById(req.params.id);
+        if(!product){
+            return res.status(404).json({message: 'No se encontró el producto'});
+        }
+        await productModel.deleteOne({_id: req.params.id});
         res.json({"status": "success", "payload":{"message": 'Se eliminó el producto'}});
         io.emit('deleteProduct', product);
     }

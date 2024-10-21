@@ -43,7 +43,7 @@
                             {{/if}}
                         </td>
                         <td>
-                            <button class="btn btn-primary" onclick="">Agregar al Carrito</button>
+                            <button class="btn btn-primary" onclick="agregarAlCarrito('{{_id}}')">Agregar al Carrito</button>
                             <button class="btn btn-success" onclick="verDetalles('{{_id}}')">Ver Detalles</button>
                         </td>
                     </tr>
@@ -59,11 +59,16 @@
     <div class="pagination">
         {{#if hasPrevPage}}
             <a href="{{prevLink}}"><button class="btn btn-info">Anterior</button></a>
+            &nbsp;
         {{/if}}
 
+        <button class="btn btn-info">{{page}}</button>
+
         {{#if hasNextPage}}
+            &nbsp;
             <a href="{{nextLink}}"><button class="btn btn-info">Siguiente</button></a>
         {{/if}}
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/index2.js"></script>

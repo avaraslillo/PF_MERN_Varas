@@ -46,7 +46,7 @@ Es posible interactuar con la API utilizando herramientas como Postman y CURL.
 
 ### Obtener todos los productos
 
-Este endpoint obtiene todos el listado de productos. Es posible configurar un límite de productos. Puede ser accedido mediante la siguiente URL (usando método GET): http://localhost:8080/api/products
+Este endpoint obtiene todo el listado de productos. Puede ser accedido mediante la siguiente URL (usando método GET): http://localhost:8080/api/products. Es posible establecer un número de página mediante el parámetro *page*, establecer un límite de productos a visualizar con *limit*, establecer orden ascedente o descedente por precio con el parámetro *sort* (valores *asc* o *desc*), filtrar por categoría mediante el parámetro *category*, y por disponibilidad mediante el parámetro *stock*.
 
 ### Obtener producto por ID
 
@@ -85,6 +85,18 @@ Este endpoint genera un nuevo carrito de compra. Puede ser accedido mediante la 
 ### Ingresar Producto a un Carrito
 
 Este endpoint agrega un producto a un carrito de compra ya existente. Puede ser accedido mediante la siguiente URL (usando método POST): http://localhost:8080/api/carts/{$cid}/product/{$pid}, con $cid siendo el ID del carrito de compra y $pid siendo el ID del producto.
+
+### Eliminar un Producto de un Carrito
+
+Este endpoint elimina un producto de un carrito de compra ya existente. Puede ser accedido mediante la siguiente URL (usando método DELETE): http://localhost:8080/api/carts/{$cid}/product/{$pid}, con $cid siendo el ID del carrito de compra y $pid siendo el ID del producto.
+
+### Actualizar la cantidad de ejemplares de un producto dentro de un carrito
+
+Este endpoint actualiza la cantidad de ejemplares de un producto ya existente dentro de un carrito de compra. Puede ser accedido mediante la siguiente URL (usando método PUT): http://localhost:8080/api/carts/{$cid}/product/{$pid}, con $cid siendo el ID del carrito de compra y $pid siendo el ID del producto. Además, se debe enviar a través del body un parámetro llamado quantity.
+
+### Eliminar todos los productos de un carrito
+
+Este endpoint elimina todos los productos del carrito, dejándolo vacío. Puede ser accedido mediante la siguiente URL (usando método DELETE): http://localhost:8080/api/carts/{$cid}, con $cid siendo el ID del carrito de compra.
 
 
 ## Manejo de Errores
