@@ -79,7 +79,7 @@ productRouter.get('/:id', async(req, res) => {
            return res.json({"status": "success", "payload": product});
         }
         else{
-            return res.status(404).json({message: 'No se encontró el producto'});
+            return res.status(404).json({status: 'error', message: 'No se encontró el producto'});
         }
     }
     catch(error){
@@ -94,7 +94,7 @@ productRouter.post('/', async(req, res) => {
         const {title, description, code, price, status, stock, category, thumbnails} = req.body;
         //Todos los atributos son obligatorios a excepción de thumbnails
         if(!title || !description || !code || !price || !status || !stock || !category){
-           return res.status(400).json({message: 'Faltan campos obligatorios'});
+           return res.status(400).json({status: 'error', message: 'Faltan campos obligatorios'});
         }
         const newProduct = await productModel.create(req.body);
         res.status(201).json({"status": "success", "payload":{"message": 'Se agregó el producto',"product": newProduct }});
@@ -112,11 +112,11 @@ productRouter.put('/:id', async(req, res) => {
         const {title, description, code, price, status, stock, category, thumbnails} = req.body;
         //Todos los atributos son obligatorios a excepción de thumbnails
         if(!title || !description || !code || !price || !status || !stock || !category){
-           return res.status(400).json({message: 'Faltan campos obligatorios'});
+           return res.status(400).json({status: 'error', message: 'Faltan campos obligatorios'});
         }
         const product = await productModel.findById(req.params.id);
         if(!product){
-            return res.status(404).json({message: 'No se encontró el producto'});
+            return res.status(404).json({status: 'error', message: 'No se encontró el producto'});
         }
         const updatedProduct = await productModel.updateOne({_id: req.params.id}, req.body);
         res.status(201).json({"status": "success", "payload":{"message": 'Se actualizo el producto',"product": updatedProduct }});
@@ -133,7 +133,7 @@ productRouter.delete('/:id', async(req, res) => {
     try{
         const product = await productModel.findById(req.params.id);
         if(!product){
-            return res.status(404).json({message: 'No se encontró el producto'});
+            return res.status(404).json({status: 'error', message: 'No se encontró el producto'});
         }
         await productModel.deleteOne({_id: req.params.id});
         res.json({"status": "success", "payload":{"message": 'Se eliminó el producto'}});

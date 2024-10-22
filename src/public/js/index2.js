@@ -4,11 +4,13 @@ const verDetalles = (id) =>  {
 
 const agregarAlCarrito = async(pid,cid="670b1bde07c4f9f9779d4d0c") => {
     try{
+        //Se llama a la API para agregar el producto al carrito
         await fetch(`http://localhost:8080/api/carts/${cid}/product/${pid}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             }
+            //Si se agregó correctamente, se muestra una alerta indicando al usuario
         }).then(response => {
             if(response.status === 200 || response.status === 201 || response.status === 204
             || response.status === 304
@@ -22,6 +24,7 @@ const agregarAlCarrito = async(pid,cid="670b1bde07c4f9f9779d4d0c") => {
                     confirmButtonText: 'Aceptar'
                   });
             }
+            //Si hubo un error, se muestra una alerta indicando al usuario
             else{
                 Swal.fire({
                     title: "Error",

@@ -1,14 +1,13 @@
 import { Router } from 'express';
 import cartModel from '../models/cart.model.js';
 const cartRouter = Router();
-const path = './src/db/carritos.json';
 
 
 //Función para agregar un carrito
 cartRouter.post('/', async(req, res) => {
     try{
         const newCart = await cartModel.create(req.body);
-        return res.json({'status': 'success', 'message': 'Se agrego el carrito'});
+        return res.json({'status': 'success', 'message': 'Se agregó el carrito'});
         
     }
     catch(error){
@@ -26,7 +25,7 @@ cartRouter.get('/:cid', async(req, res) => {
            return res.json({status:'success', payload:cart});
         }
         else{
-            return res.status(404).json({message: 'No se encontró el carrito'});
+            return res.status(404).json({status: 'error', message: 'No se encontró el carrito'});
         }
     }
     catch(error){
@@ -67,6 +66,37 @@ cartRouter.post('/:cid/product/:pid', async(req, res) => {
         return res.status(500).json({status:'error',message: 'Hubo un error en el servidor'});
     }
 
+});
+
+//Función para ingresar un conjunto de productos a un carrito con su CID
+cartRouter.put('/:cid', async(req, res) => {
+    try{
+        const cart = await cartModel.findById(req.params.cid);
+        const array_of_products = req.body.products;
+        if(cart){
+            for(const productID of array_of_products){
+                //Si el producto ya existe, se actualiza la cantidad de ejemplares
+                const productIndex = cart.products.findIndex(p => p.product == productID);
+                if(productIndex!==-1){
+                    const foundProduct = cart.products[productIndex];
+                    foundProduct.quantity = foundProduct.quantity+1;
+                }
+                //Si el producto no existe, se agrega al carrito
+                else{
+                    await cart.products.push({product:productID, quantity: 1});
+                }
+            }
+            await cart.save();
+            return res.json({status: 'success', message: 'Se actualizó el carrito'});
+        }
+        else{
+            return res.status(404).json({status: 'error', message: 'No se encontró el carrito'});
+        }
+    }
+    catch(error){
+        console.log(error);
+        return res.status(500).json({status:'error',message: 'Hubo un error en el servidor'});
+    }
 });
 
 //Función para eliminar un producto de un carrito
