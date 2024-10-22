@@ -17,13 +17,13 @@ Para empezar con este proyecto, seguir estos pasos:
 1. Clonar el repositorio:
 
     ```bash
-    git clone https://github.com/avaraslillo/2ENT_MERN_Varas.git
+    git clone https://github.com/avaraslillo/PF_MERN_Varas.git
     ```
 
 2. Navegar al directorio del proyecto:
 
     ```bash
-    cd 2ENT_MERN_VARAS
+    cd PF_MERN_VARAS
     ```
 
 3. Instalar las dependencias:
@@ -31,6 +31,7 @@ Para empezar con este proyecto, seguir estos pasos:
     ```bash
     npm install
     ```
+4. Configurar un archivo .env con un string para conexión a base de datos MongoDB
 
 5. Inicializar el servidor:
 
